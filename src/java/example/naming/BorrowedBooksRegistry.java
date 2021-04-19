@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Klasa zapisuje listę czytelników i ich wypożyczone książki
+ */
 class BorrowedBooksRegistry {
     private final Map<Reader, List<ISBN>> rentals;
 
@@ -12,7 +15,7 @@ class BorrowedBooksRegistry {
         rentals = new HashMap<>();
     }
 
-    void rent(Book book, Reader reader) {
+    void borrow(Book book, Reader reader) {
         if (rentals.containsKey(reader)) {
             rentals.get(reader).add(book.getIsbn());
         } else {

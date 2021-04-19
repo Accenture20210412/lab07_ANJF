@@ -5,6 +5,10 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
+
+/**
+ * klasa odpowiada za zarządzanie czytelnikami w obrębie naszej biblioteki
+ */
 class ReadersManager {
     private final List<Reader> readers;
 

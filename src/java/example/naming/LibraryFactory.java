@@ -1,5 +1,8 @@
 package java.example.naming;
 
+/**
+ * tworzenie biblioteki
+ */
 class LibraryFactory {
     LibraryManager library() {
         ReadersManager readersManager = new ReadersManager();

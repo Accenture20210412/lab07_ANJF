@@ -2,12 +2,15 @@ package java.example.naming;
 
 import java.util.Set;
 
+/**
+ * Wzorzec projektowy FACADE do klasy ksiązka
+ */
 public interface BookFacade {
     void putBook(Book book);
 
-    void addBooks(Book book, int amount);
+    void addBook(Book book, int amount);
 
-    int fetchBookAmounts(Book book);
+    int getBookAmounts(Book book);
 
     Set<Book> getBooks();
 

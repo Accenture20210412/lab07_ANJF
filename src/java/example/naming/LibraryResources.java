@@ -1,6 +1,5 @@
 package java.example.naming;
 
-import java.util.Map;
 import java.util.Set;
 
 // TODO: class cleanup
@@ -16,16 +15,16 @@ class LibraryResources {
 
     void addBook(Book book) {
         catalogue.add(book);
-        bookWarehouse.add(book.getIsbn());
+        bookWarehouse.addBook(book.getIsbn());
     }
 
     void addBooks(Book book, int amount) {
         catalogue.add(book);
-        bookWarehouse.add(book.getIsbn(), amount);
+        bookWarehouse.addBook(book.getIsbn(), amount);
     }
 
     int availableCopies(Book book) {
-        return bookWarehouse.availableCopiesAmount(book.getIsbn());
+        return bookWarehouse.availableCopies(book.getIsbn());
     }
 
     Set<Book> bookCatalogue() {
@@ -33,14 +32,14 @@ class LibraryResources {
     }
 
     void take(ISBN isbn) {
-        bookWarehouse.take(isbn);
+        bookWarehouse.borrowBook(isbn);
     }
 
     boolean contains(Book book) {
         return catalogue.contains(book);
     }
 
-    void add(ISBN isbn) {
-        bookWarehouse.add(isbn);
+    void addToResources(ISBN isbn) {
+        bookWarehouse.addBook(isbn);
     }
 }

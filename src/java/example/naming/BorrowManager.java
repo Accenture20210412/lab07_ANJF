@@ -2,57 +2,54 @@ package java.example.naming;
 
 // TODO: clean up methods
 
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.bookAlreadyBorrowedByReader;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.noAvailableCopies;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.notInCatalogue;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.readerNotEnrolled;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.success;
+
+import static java.example.naming.BorrowOutcome.*;
 
 class BorrowManager {
-    private final LibraryResources books;
-    private final ReadersManager readersRegistry;
+    private final LibraryResources libraryResources;
+    private final ReadersManager readersManager;
     private final BorrowedBooksRegistry borrowedBooksRegistry;
 
     BorrowManager(LibraryResources books, ReadersManager readersManager, BorrowedBooksRegistry borrowedBookRegistry) {
-        this.books = books;
-        this.readersRegistry = readersManager;
+        this.libraryResources = books;
+        this.readersManager = readersManager;
         this.borrowedBooksRegistry = borrowedBookRegistry;
     }
 
-    BorrowOutcome borrow(Book book, Reader reader) {
+    BorrowOutcome borrowBook(Book book, Reader reader) {
 
-        if (readersRegistry.contains(reader) &&
-                books.contains(book) &&
+        if (readersManager.contains(reader) &&
+                libraryResources.contains(book) &&
                 !borrowedBooksRegistry.readerHasBookCopy(book, reader) &&
-                books.availableCopies(book) > 0
+                libraryResources.availableCopies(book) > 0
         ) {
-            books.take(book.getIsbn());
-            borrowedBooksRegistry.rent(book, reader);
+            libraryResources.take(book.getIsbn());
+            borrowedBooksRegistry.borrow(book, reader);
             return success;
         } else
-        if (!readersRegistry.contains(reader)) {
+        if (!readersManager.contains(reader)) {
             return readerNotEnrolled;
-        } else if (!books.contains(book)) {
+        } else if (!libraryResources.contains(book)) {
             return notInCatalogue;
         } else if (borrowedBooksRegistry.readerHasBookCopy(book, reader)) {
             return bookAlreadyBorrowedByReader;
-        } else if (books.availableCopies(book) == 0) {
+        } else if (libraryResources.availableCopies(book) == 0) {
             return noAvailableCopies;
         }
         return null;
     }
 
-    ReturnOutcome giveBack(Book book, Reader reader) {
-        if (!readersRegistry.contains(reader))
+    ReturnOutcome returnBook(Book book, Reader reader) {
+        if (!readersManager.contains(reader))
             return ReturnOutcome.readerNotEnrolled;
 
-        if (!books.contains(book))
+        if (!libraryResources.contains(book))
             return ReturnOutcome.notInCatalogue;
 
         if (borrowedBooksRegistry.readerHasNoBookCopy(book, reader))
             return ReturnOutcome.bookNotBorrowedByReader;
 
-        books.add(book.getIsbn());
+        libraryResources.addToResources(book.getIsbn());
         borrowedBooksRegistry.returnBook(book, reader);
         return ReturnOutcome.success;
     }

@@ -2,7 +2,7 @@ package java.example.naming;
 
 enum ReturnOutcome {
     notInCatalogue,
-    readerNotEnrolled,
+    readerNotExists,
     bookNotBorrowedByReader,
     success
 }

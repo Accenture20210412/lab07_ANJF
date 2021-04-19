@@ -12,15 +12,15 @@ class ReadersManager {
         readers = new ArrayList<>();
     }
 
-    void enroll(Reader reader) {
+    void addReader(Reader reader) {
         readers.add(reader);
     }
 
-    List<Reader> readers() {
+    List<Reader> getReaders() {
         return unmodifiableList(readers);
     }
 
-    boolean contains(Reader reader) {
+    boolean checkReaderExists(Reader reader) {
         return readers.contains(reader);
     }
 }

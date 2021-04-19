@@ -12,7 +12,7 @@ class Catalogue {
         catalogue = new HashSet<>();
     }
 
-    void add(Book book) {
+    void addBook(Book book) {
         catalogue.add(book);
     }
 

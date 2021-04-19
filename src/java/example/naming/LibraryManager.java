@@ -15,7 +15,7 @@ public class LibraryManager implements BookFacade, ReaderFacade {
     }
 
     @Override
-    public void putBook(Book book) {
+    public void addBook(Book book) {
         libraryResources.addBook(book);
     }
 
@@ -25,7 +25,7 @@ public class LibraryManager implements BookFacade, ReaderFacade {
     }
 
     @Override
-    public int fetchBookAmounts(Book book) {
+    public int getBookAmounts(Book book) {
         return libraryResources.availableCopies(book);
     }
 
@@ -35,22 +35,22 @@ public class LibraryManager implements BookFacade, ReaderFacade {
     }
 
     @Override
-    public void newReader(Reader reader) {
-        readersManager.enroll(reader);
+    public void addNewReader(Reader reader) {
+        readersManager.addReader(reader);
     }
 
     @Override
-    public List<Reader> loadReaders() {
-        return readersManager.readers();
+    public List<Reader> getReaders() {
+        return readersManager.getReaders();
     }
 
     @Override
-    public BorrowOutcome provideBook(Book what, Reader who) {
-        return borrowManager.borrow(what, who);
+    public BorrowOutcome borrowBook(Book book, Reader reader) {
+        return borrowManager.borrow(book, reader);
     }
 
     @Override
-    public ReturnOutcome returns(Book book, Reader who) {
-        return borrowManager.giveBack(book, who);
+    public ReturnOutcome returnBook(Book book, Reader reader) {
+        return borrowManager.giveBack(book, reader);
     }
 }

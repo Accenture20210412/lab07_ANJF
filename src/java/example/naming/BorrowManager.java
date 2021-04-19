@@ -2,11 +2,6 @@ package java.example.naming;
 
 // TODO: clean up methods
 
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.bookAlreadyBorrowedByReader;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.noAvailableCopies;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.notInCatalogue;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.readerNotEnrolled;
-import static com.inqoo.quality.clean.library.exercises.naming.BorrowOutcome.success;
 
 class BorrowManager {
     private final LibraryResources books;
@@ -21,18 +16,18 @@ class BorrowManager {
 
     BorrowOutcome borrow(Book book, Reader reader) {
 
-        if (readersRegistry.contains(reader) &&
-                books.contains(book) &&
+        if (readersRegistry.checkReaderExists(reader) &&
+                books.checkBookExists(book) &&
                 !borrowedBooksRegistry.readerHasBookCopy(book, reader) &&
                 books.availableCopies(book) > 0
         ) {
-            books.take(book.getIsbn());
+            books.deleteBookFromLibrary(book.getIsbn());
             borrowedBooksRegistry.rent(book, reader);
             return success;
         } else
-        if (!readersRegistry.contains(reader)) {
+        if (!readersRegistry.checkReaderExists(reader)) {
             return readerNotEnrolled;
-        } else if (!books.contains(book)) {
+        } else if (!books.checkBookExists(book)) {
             return notInCatalogue;
         } else if (borrowedBooksRegistry.readerHasBookCopy(book, reader)) {
             return bookAlreadyBorrowedByReader;
@@ -43,16 +38,16 @@ class BorrowManager {
     }
 
     ReturnOutcome giveBack(Book book, Reader reader) {
-        if (!readersRegistry.contains(reader))
-            return ReturnOutcome.readerNotEnrolled;
+        if (!readersRegistry.checkReaderExists(reader))
+            return ReturnOutcome.readerNotExists;
 
-        if (!books.contains(book))
+        if (!books.checkBookExists(book))
             return ReturnOutcome.notInCatalogue;
 
         if (borrowedBooksRegistry.readerHasNoBookCopy(book, reader))
             return ReturnOutcome.bookNotBorrowedByReader;
 
-        books.add(book.getIsbn());
+        books.addBookToLibrary(book.getIsbn());
         borrowedBooksRegistry.returnBook(book, reader);
         return ReturnOutcome.success;
     }

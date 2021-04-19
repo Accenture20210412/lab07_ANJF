@@ -3,7 +3,7 @@ package java.example.naming;
 import java.util.List;
 
 public interface ReaderFacade {
-    void newReader(Reader reader);
+    void addNewReader(Reader reader);
 
-    List<Reader> loadReaders();
+    List<Reader> getReaders();
 }

@@ -1,9 +1,9 @@
 package java.example.naming;
 
 enum BorrowOutcome {
-    notInCatalogue,
-    readerNotEnrolled,
-    noAvailableCopies,
-    bookAlreadyBorrowedByReader,
-    success
+    NOT_IN_CATALOGUE,
+    READER_NOT_ENROLLED,
+    NO_AVAILABLE_COPIES,
+    BOOK_ALREADY_BORROWED_BY_READER,
+    SUCCESS
 }

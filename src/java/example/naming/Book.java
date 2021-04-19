@@ -2,6 +2,10 @@ package java.example.naming;
 
 import java.util.Objects;
 
+/**
+ * Klasa przedstawiająca obiekt typu książka.
+ */
+
 class Book {
     private final ISBN isbn;
     private final String author;

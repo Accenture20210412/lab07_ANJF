@@ -46,11 +46,11 @@ public class LibraryManager implements BookFacade, ReaderFacade {
 
     @Override
     public BorrowOutcome borrowBook(Book book, Reader reader) {
-        return borrowManager.borrow(book, reader);
+        return borrowManager.borrowBook(book, reader);
     }
 
     @Override
     public ReturnOutcome returnBook(Book book, Reader reader) {
-        return borrowManager.giveBack(book, reader);
+        return borrowManager.returnBook(book, reader);
     }
 }

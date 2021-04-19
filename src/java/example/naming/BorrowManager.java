@@ -2,54 +2,73 @@ package java.example.naming;
 
 // TODO: clean up methods
 
+import static java.example.naming.BorrowOutcome.*;
 
 class BorrowManager {
-    private final LibraryResources books;
-    private final ReadersManager readersRegistry;
+    private final LibraryResources libraryResources;
+    private final ReadersManager readersManager;
     private final BorrowedBooksRegistry borrowedBooksRegistry;
 
-    BorrowManager(LibraryResources books, ReadersManager readersManager, BorrowedBooksRegistry borrowedBookRegistry) {
-        this.books = books;
-        this.readersRegistry = readersManager;
+    BorrowManager(LibraryResources libraryResources, ReadersManager readersManager, BorrowedBooksRegistry borrowedBookRegistry) {
+        this.libraryResources = libraryResources;
+        this.readersManager = readersManager;
         this.borrowedBooksRegistry = borrowedBookRegistry;
     }
 
-    BorrowOutcome borrow(Book book, Reader reader) {
-
-        if (readersRegistry.checkReaderExists(reader) &&
-                books.checkBookExists(book) &&
-                !borrowedBooksRegistry.readerHasBookCopy(book, reader) &&
-                books.availableCopies(book) > 0
-        ) {
-            books.deleteBookFromLibrary(book.getIsbn());
-            borrowedBooksRegistry.borrow(book, reader);
-            return success;
-        } else
-        if (!readersRegistry.checkReaderExists(reader)) {
+    BorrowOutcome borrowBook(Book book, Reader reader) {
+        if (isRegister(reader)) {
             return readerNotEnrolled;
-        } else if (!books.checkBookExists(book)) {
+        } if (isAvailableInCatalogue(book)) {
             return notInCatalogue;
-        } else if (borrowedBooksRegistry.readerHasBookCopy(book, reader)) {
+        } if (isAlreadyBorrowed(book, reader)) {
             return bookAlreadyBorrowedByReader;
-        } else if (books.availableCopies(book) == 0) {
+        } if (copyIsAvailable(book)) {
             return noAvailableCopies;
+        } else {
+            return borrow(book, reader);
         }
-        return null;
     }
 
-    ReturnOutcome giveBack(Book book, Reader reader) {
-        if (!readersRegistry.checkReaderExists(reader))
-            return ReturnOutcome.READER_NOT_EXISTS;
 
-        if (!books.checkBookExists(book))
+    ReturnOutcome returnBook(Book book, Reader reader) {
+        if (isRegister(reader)) {
+            return ReturnOutcome.READER_NOT_ENROLLED;
+        } if (!isAvailableInCatalogue(book)) {
             return ReturnOutcome.NOT_IN_CATALOGUE;
-
-        if (borrowedBooksRegistry.readerHasNoBookCopy(book, reader))
+        } if (isAlreadyBorrowed(book, reader)) {
             return ReturnOutcome.BOOK_NOT_BORROWED_BY_READER;
+        } else {
+            return giveBack(book, reader);
+        }
+    }
 
-        books.addBookToLibrary(book.getIsbn());
+    private BorrowOutcome borrow(Book book, Reader reader) {
+        libraryResources.deleteBookFromLibrary(book.getIsbn());
+        borrowedBooksRegistry.borrow(book, reader);
+        return success;
+    }
+
+    private ReturnOutcome giveBack(Book book, Reader reader) {
+        libraryResources.addBookToLibrary(book.getIsbn());
         borrowedBooksRegistry.returnBook(book, reader);
         return ReturnOutcome.SUCCESS;
+    }
+
+    private boolean isAlreadyBorrowed(Book book, Reader reader) {
+        return borrowedBooksRegistry.readerHasNoBookCopy(book, reader);
+    }
+
+
+    private boolean copyIsAvailable(Book book) {
+        return libraryResources.availableCopies(book) == 0;
+    }
+
+    private boolean isAvailableInCatalogue(Book book) {
+        return libraryResources.checkBookExists(book);
+    }
+
+    private boolean isRegister(Reader reader) {
+        return !readersManager.checkReaderExists(reader);
     }
 
 }

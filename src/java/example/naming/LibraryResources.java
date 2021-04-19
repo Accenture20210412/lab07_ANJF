@@ -15,16 +15,16 @@ class LibraryResources {
 
     void addBook(Book book) {
         catalogue.addBook(book);
-        bookWarehouse.add(book.getIsbn());
+        bookWarehouse.addBook(book.getIsbn());
     }
 
     void addBooks(Book book, int amount) {
         catalogue.addBook(book);
-        bookWarehouse.add(book.getIsbn(), amount);
+        bookWarehouse.addBook(book.getIsbn(), amount);
     }
 
     int availableCopies(Book book) {
-        return bookWarehouse.availableCopiesAmount(book.getIsbn());
+        return bookWarehouse.availableCopies(book.getIsbn());
     }
 
     Set<Book> bookCatalogue() {
@@ -32,7 +32,7 @@ class LibraryResources {
     }
 
     void deleteBookFromLibrary(ISBN isbn) {
-        bookWarehouse.take(isbn);
+        bookWarehouse.borrowBook(isbn);
     }
 
     boolean checkBookExists(Book book) {
@@ -40,6 +40,6 @@ class LibraryResources {
     }
 
     void addBookToLibrary(ISBN isbn) {
-        bookWarehouse.add(isbn);
+        bookWarehouse.addBook(isbn);
     }
 }

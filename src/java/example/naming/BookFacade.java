@@ -8,7 +8,7 @@ import java.util.Set;
 public interface BookFacade {
     void addBook(Book book);
 
-    void addBook(Book book, int amount);
+    void addBooks(Book book, int amount);
 
     int getBookAmounts(Book book);
 

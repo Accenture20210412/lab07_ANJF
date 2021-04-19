@@ -22,7 +22,7 @@ class BorrowManager {
                 books.availableCopies(book) > 0
         ) {
             books.deleteBookFromLibrary(book.getIsbn());
-            borrowedBooksRegistry.rent(book, reader);
+            borrowedBooksRegistry.borrow(book, reader);
             return success;
         } else
         if (!readersRegistry.checkReaderExists(reader)) {
@@ -39,17 +39,17 @@ class BorrowManager {
 
     ReturnOutcome giveBack(Book book, Reader reader) {
         if (!readersRegistry.checkReaderExists(reader))
-            return ReturnOutcome.readerNotExists;
+            return ReturnOutcome.READER_NOT_EXISTS;
 
         if (!books.checkBookExists(book))
-            return ReturnOutcome.notInCatalogue;
+            return ReturnOutcome.NOT_IN_CATALOGUE;
 
         if (borrowedBooksRegistry.readerHasNoBookCopy(book, reader))
-            return ReturnOutcome.bookNotBorrowedByReader;
+            return ReturnOutcome.BOOK_NOT_BORROWED_BY_READER;
 
         books.addBookToLibrary(book.getIsbn());
         borrowedBooksRegistry.returnBook(book, reader);
-        return ReturnOutcome.success;
+        return ReturnOutcome.SUCCESS;
     }
 
 }

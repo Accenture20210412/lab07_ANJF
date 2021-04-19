@@ -5,22 +5,26 @@ import java.util.Set;
 
 import static java.util.Collections.unmodifiableSet;
 
-class Catalogue {
+/**
+ * Klasa zawiera zestaw unikalnych książek
+ * oraz metody do zarządzania setem
+ */
+class BookCatalogue {
     private final Set<Book> catalogue;
 
-    Catalogue() {
+    BookCatalogue() {
         catalogue = new HashSet<>();
     }
 
-    void add(Book book) {
+    void addBook(Book book) {
         catalogue.add(book);
     }
 
-    Set<Book> getAll() {
+    Set<Book> getUniqueBooks() {
         return unmodifiableSet(catalogue);
     }
 
-    boolean contains(Book book) {
+    boolean isContains(Book book) {
         return catalogue.contains(book);
     }
 

@@ -5,21 +5,21 @@ import java.util.Set;
 // TODO: class cleanup
 
 class LibraryResources {
-    private final Catalogue catalogue;
+    private final BookCatalogue catalogue;
     private final BookWarehouse bookWarehouse;
 
-    LibraryResources(Catalogue catalogue, BookWarehouse bookWarehouse) {
+    LibraryResources(BookCatalogue catalogue, BookWarehouse bookWarehouse) {
         this.catalogue = catalogue;
         this.bookWarehouse = bookWarehouse;
     }
 
     void addBook(Book book) {
-        catalogue.add(book);
+        catalogue.addBook(book);
         bookWarehouse.addBook(book.getIsbn());
     }
 
     void addBooks(Book book, int amount) {
-        catalogue.add(book);
+        catalogue.addBook(book);
         bookWarehouse.addBook(book.getIsbn(), amount);
     }
 
@@ -28,7 +28,7 @@ class LibraryResources {
     }
 
     Set<Book> bookCatalogue() {
-        return catalogue.getAll();
+        return catalogue.getUniqueBooks();
     }
 
     void take(ISBN isbn) {
@@ -36,7 +36,7 @@ class LibraryResources {
     }
 
     boolean contains(Book book) {
-        return catalogue.contains(book);
+        return catalogue.isContains(book);
     }
 
     void addToResources(ISBN isbn) {

@@ -20,7 +20,7 @@ class LibraryResources {
 
     void addBooks(Book book, int amount) {
         catalogue.addBook(book);
-        bookWarehouse.addBook(book.getIsbn(), amount);
+        bookWarehouse.addBooks(book.getIsbn(), amount);
     }
 
     int availableCopies(Book book) {

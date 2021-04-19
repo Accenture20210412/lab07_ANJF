@@ -20,7 +20,7 @@ class BookWarehouse {
         bookWarehouse.merge(isbn, 1, Integer::sum);
     }
 
-    void addBook(ISBN isbn, int amount) {
+    void addBooks(ISBN isbn, int amount) {
         bookWarehouse.merge(isbn, amount, Integer::sum);
     }
 

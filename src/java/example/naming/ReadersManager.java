@@ -5,22 +5,23 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 
-class ReadersManager {
+class ReadersManager implements ReadersManagerInterface {
     private final List<Reader> readers;
 
     ReadersManager() {
         readers = new ArrayList<>();
     }
 
-    void enroll(Reader reader) {
+@Override
+public void enroll(Reader reader) {
         readers.add(reader);
     }
-
-    List<Reader> readers() {
+@Override
+public List<Reader> readers() {
         return unmodifiableList(readers);
     }
-
-    boolean contains(Reader reader) {
+@Override
+public boolean contains(Reader reader) {
         return readers.contains(reader);
     }
 }

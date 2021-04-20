@@ -8,14 +8,14 @@ import java.util.Map;
 /**
  * Klasa zapisuje listę czytelników i ich wypożyczone książki
  */
-class BorrowedBooksRegistry {
+class BorrowedBooksRegistry implements BorrowedBooksRegistryInterface {
     private final Map<Reader, List<ISBN>> rentals;
 
     BorrowedBooksRegistry() {
         rentals = new HashMap<>();
     }
-
-    void borrow(Book book, Reader reader) {
+@Override
+public void borrow(Book book, Reader reader) {
         if (rentals.containsKey(reader)) {
             rentals.get(reader).add(book.getIsbn());
         } else {
@@ -24,17 +24,17 @@ class BorrowedBooksRegistry {
             rentals.put(reader, books);
         }
     }
-
-    boolean readerHasNoBookCopy(Book book, Reader reader) {
+@Override
+public boolean readerHasNoBookCopy(Book book, Reader reader) {
         return !readerHasBookCopy(book, reader);
     }
-
-    void returnBook(Book book, Reader reader) {
+@Override
+public void returnBook(Book book, Reader reader) {
         ISBN isbn = book.getIsbn();
         rentals.get(reader).remove(isbn);
     }
-
-    boolean readerHasBookCopy(Book book, Reader reader) {
+@Override
+public boolean readerHasBookCopy(Book book, Reader reader) {
         ISBN isbn = book.getIsbn();
         return rentals.containsKey(reader) && rentals.get(reader).contains(isbn);
     }

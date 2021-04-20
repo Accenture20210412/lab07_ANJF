@@ -7,10 +7,10 @@ import static java.example.naming.BorrowOutcome.*;
 
 class BorrowManager {
     private final Resources libraryResources;
-    private final ReadersManager readersManager;
-    private final BorrowedBooksRegistry borrowedBooksRegistry;
+    private final ReadersManagerInterface readersManager;
+    private final BorrowedBooksRegistryInterface borrowedBooksRegistry;
 
-    BorrowManager(LibraryResources books, ReadersManager readersManager, BorrowedBooksRegistry borrowedBookRegistry) {
+    BorrowManager(Resources books, ReadersManagerInterface readersManager, BorrowedBooksRegistryInterface borrowedBookRegistry) {
         this.libraryResources = books;
         this.readersManager = readersManager;
         this.borrowedBooksRegistry = borrowedBookRegistry;

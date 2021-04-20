@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 public class LibraryManager implements BookFacade, ReaderFacade {
-    private final ReadersManager readersManager;
+    private final ReadersManagerInterface readersManager;
     private final BorrowManager borrowManager;
     private final LibraryResources libraryResources;
 

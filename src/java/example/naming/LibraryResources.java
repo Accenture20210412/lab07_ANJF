@@ -4,7 +4,7 @@ import java.util.Set;
 
 // TODO: class cleanup
 
-class LibraryResources {
+class LibraryResources implements Resources {
     private final Catalogue catalogue;
     private final BookWarehouse bookWarehouse;
 
@@ -23,7 +23,8 @@ class LibraryResources {
         bookWarehouse.addBook(book.getIsbn(), amount);
     }
 
-    int availableCopies(Book book) {
+    @Override
+    public int availableCopies(Book book) {
         return bookWarehouse.availableCopies(book.getIsbn());
     }
 
@@ -31,15 +32,15 @@ class LibraryResources {
         return catalogue.getAll();
     }
 
-    void deleteBookFromLibrary(ISBN isbn) {
+    public void borrowBook(ISBN isbn) {
         bookWarehouse.borrowBook(isbn);
     }
-
-    boolean checkBookExists(Book book) {
+    @Override
+    public boolean contains(Book book) {
         return catalogue.contains(book);
     }
-
-    void addBookToLibrary(ISBN isbn) {
+    @Override
+    public void addToResources(ISBN isbn) {
         bookWarehouse.addBook(isbn);
     }
 }

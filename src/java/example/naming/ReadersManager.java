@@ -9,22 +9,23 @@ import static java.util.Collections.unmodifiableList;
 /**
  * klasa odpowiada za zarządzanie czytelnikami w obrębie naszej biblioteki
  */
-class ReadersManager {
+class ReadersManager implements ReadersManagerInterface {
     private final List<Reader> readers;
 
     ReadersManager() {
         readers = new ArrayList<>();
     }
 
-    void addReader(Reader reader) {
+    @Override
+    public void addReader(Reader reader) {
         readers.add(reader);
     }
-
-    List<Reader> getReaders() {
+    @Override
+    public List<Reader> getReaders() {
         return unmodifiableList(readers);
     }
-
-    boolean checkReaderExists(Reader reader) {
+    @Override
+    public boolean contains(Reader reader) {
         return readers.contains(reader);
     }
 }

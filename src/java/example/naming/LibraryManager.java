@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 public class LibraryManager implements BookFacade, ReaderFacade {
-    private final ReadersManager readersManager;
+    private final ReadersManagerInterface readersManager;
     private final BorrowManager borrowManager;
     private final LibraryResources libraryResources;
 
-    LibraryManager(ReadersManager readersManager, BorrowManager borrowManager, LibraryResources libraryResources) {
+    LibraryManager(ReadersManagerInterface readersManager, BorrowManager borrowManager, LibraryResources libraryResources) {
         this.readersManager = readersManager;
         this.borrowManager = borrowManager;
         this.libraryResources = libraryResources;

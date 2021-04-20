@@ -7,6 +7,7 @@ import java.util.Objects;
  */
 
 class Book {
+
     private final ISBN isbn;
     private final String author;
     private final String title;

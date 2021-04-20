@@ -6,7 +6,7 @@ package java.example.naming;
 import static java.example.naming.BorrowOutcome.*;
 
 class BorrowManager {
-    private final LibraryResources libraryResources;
+    private final Resources libraryResources;
     private final ReadersManager readersManager;
     private final BorrowedBooksRegistry borrowedBooksRegistry;
 

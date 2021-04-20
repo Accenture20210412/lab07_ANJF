@@ -30,10 +30,12 @@ class BorrowedBooksRegistry {
     }
 
     void returnBook(Book book, Reader reader) {
-        rentals.get(reader).remove(book.getIsbn());
+        ISBN isbn = book.getIsbn();
+        rentals.get(reader).remove(isbn);
     }
 
     boolean readerHasBookCopy(Book book, Reader reader) {
-        return rentals.containsKey(reader) && rentals.get(reader).contains(book.getIsbn());
+        ISBN isbn = book.getIsbn();
+        return rentals.containsKey(reader) && rentals.get(reader).contains(isbn);
     }
 }
